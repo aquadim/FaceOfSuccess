@@ -1,0 +1,8 @@
+.page-main
+{
+    display: grid;
+    height: 100vh;
+    min-height: 100vh;
+    max-height: 100vh;
+    grid-gap: 0px;
+}
