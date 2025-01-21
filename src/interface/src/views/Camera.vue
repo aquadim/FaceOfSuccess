@@ -8,16 +8,23 @@ import NavButton from "../components/NavButton.vue"
 import Heading from "../components/Heading.vue"
 import config from "../config.js"
 import { onMounted, ref } from "vue"
+import { useRouter } from 'vue-router'
+import { storage } from '../storage.js'
 
 const video = ref(null);
 const canvas = ref(null);
 const streaming = false;
+const router = useRouter();
 
 function takePhoto() {
     const ctx = canvas.value.getContext("2d");
     canvas.value.width = video.value.videoWidth;
     canvas.value.height = video.value.videoHeight;
     ctx.drawImage(video.value, 0, 0);
+
+    storage.photoData = canvas.value.toDataURL("image/png").split(',')[1];
+
+    router.push('/Searching');
 }
 
 onMounted(() => {

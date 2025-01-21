@@ -2,6 +2,7 @@ import {createRouter,createWebHashHistory} from 'vue-router'
 import Main from "../views/Main.vue"
 import Camera from "../views/Camera.vue"
 import Searching from "../views/Searching.vue"
+import Results from "../views/Results.vue"
 
 const routes = [
     {
@@ -15,9 +16,14 @@ const routes = [
         component: Camera
     },
     {
-        path: "/Searching/:img",
+        path: "/Searching",
         name: "Searching",
         component: Searching
+    },
+    {
+        path: "/Results",
+        name: "Results",
+        component: Results
     }
 ];
 

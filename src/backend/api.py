@@ -3,6 +3,14 @@ from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import Storage.Utils as Storage
+import FaceCoding.AcceptFace as AcceptFace
+import base64
+import tempfile
+import Database
+import os
+
+def getDb():
+    return Database.DB("db.sqlite3")
 
 class Photo(BaseModel):
     base64image: str
@@ -22,4 +30,18 @@ def usbExists():
 
 @app.post("/accept-face")
 async def acceptFace(photo: Photo):
-    return photo.base64image
+    db = getDb()
+    
+    # Сохранение изображения во временный файл
+    with tempfile.TemporaryDirectory() as tmp:
+        path = os.path.join(tmp, 'facecodingimage')
+        with open(path, 'wb') as f:
+            f.write(base64.decodebytes(str.encode(photo.base64image)))
+
+        # Поиск лиц
+        response = AcceptFace.accept(path, db)
+
+    db.close()
+    
+    # Возвращаем данные на клиент
+    return response
