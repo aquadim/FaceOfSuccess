@@ -64,6 +64,7 @@ function start() {
                     class="w3-block"
                     text="Начать"
                     stylename="primary"
+                    icon="play"
                     @click="start"/>
             </div>
         </div>
@@ -73,18 +74,15 @@ function start() {
 </template>
 
 <style scoped>
-#mainPage
-{
+#mainPage {
     grid-template-rows: auto auto auto 10vh;
 }
 
-.steps
-{
+.steps {
     margin: auto;
 }
 
-#modals
-{
+#modals {
     position: absolute;
     height: 100vh;
     min-height: 100vh;

@@ -22,7 +22,7 @@ function hide() {
                         Необходимо вставить в терминал флеш-карту или другое USB-хранилище. 
                     </p>
                     <img src="/img/usb.png"/>
-                    <Button text="Хорошо" @click="hide" stylename="secondary"/>
+                    <Button icon="check" text="Хорошо" @click="hide" stylename="secondary"/>
                 </div>
             </div>
         </div>

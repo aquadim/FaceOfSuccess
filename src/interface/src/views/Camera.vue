@@ -53,12 +53,14 @@ onMounted(() => {
                 <NavButton
                     class="w3-block"
                     text="Отмена"
+                    icon="xmark"
                     target="Main"
                     stylename="secondary"/>
             </div>
             <div class="w3-container  w3-col s6">
                 <Button
                     class="w3-block"
+                    icon="camera"
                     text="Сфотографироваться"
                     stylename="primary"
                     @click="takePhoto"/>

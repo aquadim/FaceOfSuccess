@@ -2,7 +2,8 @@
 const props = defineProps({
     text: String,
     target: String,
-    stylename: String
+    stylename: String,
+    icon: String
 });
 const targetObj = {name: props.target};
 
@@ -14,6 +15,8 @@ if (props.stylename == "primary") {
 } else {
     console.warn("Неизвестный стиль кнопки " + props.stylename);
 }
+
+const faIcon = "fa-" + props.icon;
 </script>
 
 <template>
@@ -21,6 +24,7 @@ if (props.stylename == "primary") {
         :to="targetObj"
         :class="constructedClass"
         class="w3-round-large w3-xlarge w3-btn">
+        <i class="fa-solid" :class="faIcon"></i>
         {{text}}
     </RouterLink>
 </template>

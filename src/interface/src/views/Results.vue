@@ -6,7 +6,11 @@ import { storage } from '../storage.js'
 
 onMounted(async function() {
     // Смотрим на результат
-    
+    const response = await storage.faceCodingResponse.json();
+
+    if (response.ok) {
+        // Успешный ответ от сервера
+    }
 });
 </script>
 

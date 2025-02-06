@@ -29,11 +29,16 @@ onMounted(async function() {
             body: JSON.stringify({base64image: imageData})
         });
 
-        // Сохраняем ответ
-        storage.faceCodingResponse = response;
+        const jsonResponse = await response.json();
 
-        // Переходим на страницу результатов
-        router.push('/Results');
+        if (jsonResponse.ok) {
+            storage.foundFaces = jsonResponse.photoIds;
+            router.push('/Results');
+        } else {
+            storage.errorMessage = jsonResponse.description;
+            router.push('/Failure');
+        }
+        
     } catch (err) {
         console.warn("Не удалось отправить данные лица на API");
     }
