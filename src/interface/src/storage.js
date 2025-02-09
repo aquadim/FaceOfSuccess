@@ -7,8 +7,11 @@ export const storage = reactive({
     imageData: '',
 
     // Найденные лица после фотографирования
-    foundFaces: null,
+    foundFaces: [1],
 
     // Описание ошибки (если есть) после фотографирования
-    errorMessage: ""
+    errorMessage: "",
+
+    // Путь сохранения
+    savePath: ""
 });

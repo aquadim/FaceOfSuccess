@@ -3,12 +3,13 @@ import Heading from "../Heading.vue"
 import Button from "../Button.vue"
 
 const props = defineProps({
-    id: String
+    id: String,
+    self
 });
 
 function hide() {
-    document.getElementById(props.id).style.display = 'none';
-    document.getElementById("modals").style.display = "none";
+    //document.getElementById("modals").style.display = "none";
+    console.log(self);
 }
 </script>
 

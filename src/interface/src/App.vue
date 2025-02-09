@@ -4,6 +4,7 @@
 <template>
   <main class="app w3-light-grey">
     <router-view></router-view>
+    <DialogsWrapper />
   </main>
 </template>
 

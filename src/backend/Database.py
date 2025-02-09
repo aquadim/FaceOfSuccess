@@ -75,6 +75,26 @@ class DB:
         """, (studentId,))
         return self.cur.fetchall()
 
+    def getPhotoPath(self, photoId):
+        self.cur.execute(
+        """
+        SELECT path
+        FROM photo
+        WHERE id = ?
+        """, (photoId,))
+        return self.cur.fetchone()[0]
+
+    def getPathsByIds(self, photoIds):
+        strings = (str(item) for item in photoIds)
+        inStatement = ",".join(strings)
+        self.cur.execute(
+        """
+        SELECT path
+        FROM photo
+        WHERE id IN (%s)
+        """ % inStatement)
+        return self.cur.fetchall()
+
     def commit(self):
         self.con.commit()
 

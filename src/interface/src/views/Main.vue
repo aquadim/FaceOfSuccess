@@ -9,6 +9,7 @@ import { createApp, h, ref } from "vue"
 import { useRouter } from 'vue-router'
 
 const router = useRouter();
+let currentModal;
 
 function usbDriveExists() {
     return true;
@@ -25,6 +26,7 @@ function start() {
                 return () => h(UsbNotConnected, {id: id})
             }
         });
+        ComponentApp.
         ComponentApp.mount("#modals");
         document.getElementById(id).style.display = 'block';
         return;

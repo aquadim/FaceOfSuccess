@@ -1,9 +1,11 @@
 import {createRouter,createWebHashHistory} from 'vue-router'
-import Main from "../views/Main.vue"
-import Camera from "../views/Camera.vue"
-import Searching from "../views/Searching.vue"
-import Results from "../views/Results.vue"
-import Failure from "../views/Failure.vue"
+import Main         from "../views/Main.vue"
+import Camera       from "../views/Camera.vue"
+import Searching    from "../views/Searching.vue"
+import Results      from "../views/Results.vue"
+import Failure      from "../views/Failure.vue"
+import Saving       from "../views/Saving.vue"
+import Final        from "../views/Final.vue"
 
 const routes = [
     {
@@ -30,6 +32,16 @@ const routes = [
         path: "/Failure",
         name: "Failure",
         component: Failure
+    },
+    {
+        path: "/Saving",
+        name: "Saving",
+        component: Saving
+    },
+    {
+        path: "/Final",
+        name: "Final",
+        component: Final
     }
 ];
 

@@ -37,8 +37,7 @@ def process(dbManager, faceEncoding):
     # Узнаём что это за студент
     result = storage.compare(faceEncoding)
     if not result.found:
-        fail("Нет связанных с тобой фотографий")
-        return
+        return fail("Нет связанных с тобой фотографий")
 
     # Собираем все фотографии, которые есть с этим студентом
     photoIds = dbManager.getPhotosByStudentId(result.foundStudentId)
