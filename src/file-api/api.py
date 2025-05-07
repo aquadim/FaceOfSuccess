@@ -22,16 +22,12 @@ app.add_middleware(
 # Возвращает ok: True если к терминалу подключено устройство хранения
 @app.get("/usb-connected")
 async def getUSBConnected():
-    mountPoint = filesystem.getMountPoint()
-    return {"ok": mountPoint != None}
+    return {"ok": True}
 
 # Возвращает имя файла для сохранения
 @app.get("/get-name-to-save")
 async def getMountPoint():
-    mountPoint = filesystem.getMountPoint()
-    if mountPoint == None:
-        return {"ok": False}
-    return {"ok": True, "path": filesystem.generateZipName(mountPoint)}
+    return {"ok": True, "path": filesystem.generateZipName("C:\\photo")}
 
 # Сохраняет zip файл в заданный путь
 @app.post("/save")
