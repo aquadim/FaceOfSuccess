@@ -19,6 +19,12 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Возвращает ok: True если к терминалу подключено устройство хранения
+@app.get("/usb-connected")
+async def getUSBConnected():
+    mountPoint = filesystem.getMountPoint()
+    return {"ok": mountPoint != None}
+
 # Возвращает имя файла для сохранения
 @app.get("/get-name-to-save")
 async def getMountPoint():

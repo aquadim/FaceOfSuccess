@@ -58,3 +58,10 @@ export async function requestSaving(zipBlob, path) {
         body: fd
     });
 }
+
+// Проверяет, подключено ли внешнее устройство хранения
+export async function checkExternalStorage() {
+    const response = await fetch(config.filesystemApiUrl + "/usb-connected");
+    const jsonData = await response.json();
+    return jsonData;
+}

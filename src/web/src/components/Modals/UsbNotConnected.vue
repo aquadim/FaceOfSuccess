@@ -1,29 +1,22 @@
 <script setup>
-import Heading from "../Heading.vue"
-import Button from "../Button.vue"
+import Heading  from "../Heading.vue"
+import Button   from "../Button.vue"
 
-const props = defineProps({
-    id: String,
-    self
-});
-
-function hide() {
-    //document.getElementById("modals").style.display = "none";
-    console.log(self);
-}
+const props = defineProps({filename: String});
+const emit  = defineEmits(['confirm', 'cancel'])
 </script>
 
 <template>
-    <div :id="id" class="w3-modal">
+    <div class="w3-modal" style="display: block">
         <div class="w3-modal-content w3-animate-top">
             <div class="w3-container">
                 <div id="layout">
                     <Heading text="Хранилище не подключено"/>
                     <p class="w3-center w3-xlarge">
-                        Необходимо вставить в терминал флеш-карту или другое USB-хранилище. 
+                        Необходимо вставить в киоск флеш-карту или другое USB-хранилище. 
                     </p>
-                    <img src="/img/usb.png"/>
-                    <Button icon="check" text="Хорошо" @click="hide" stylename="secondary"/>
+                    <img class="w3-padding" src="/img/usb.png"/>
+                    <Button icon="check" text="Хорошо" @click="emit('confirm')" stylename="secondary"/>
                 </div>
             </div>
         </div>

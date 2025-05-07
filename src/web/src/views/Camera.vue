@@ -2,27 +2,28 @@
 // Страница снятия фотографии
 // Помощь и немного кода:
 // https://developer.mozilla.org/ru/docs/Web/API/Media_Capture_and_Streams_API/Taking_still_photos
-    
-import Button from "../components/Button.vue"
-import NavButton from "../components/NavButton.vue"
-import Heading from "../components/Heading.vue"
-import config from "../config.js"
-import { onMounted, ref } from "vue"
-import { useRouter } from 'vue-router'
-import { storage } from '../storage.js'
 
-const video = ref(null);
-const canvas = ref(null);
-const streaming = false;
-const router = useRouter();
+import { onMounted, ref }   from "vue"
+import { useRouter }        from 'vue-router'
+
+import Button       from "../components/Button.vue"
+import NavButton    from "../components/NavButton.vue"
+import Heading      from "../components/Heading.vue"
+
+import config       from "../config.js"
+import { storage }  from '../storage.js'
+
+const video     = ref(null);
+const canvas    = ref(null);
+const router    = useRouter();
 
 function takePhoto() {
-    const ctx = canvas.value.getContext("2d");
-    canvas.value.width = video.value.videoWidth;
+    const ctx           = canvas.value.getContext("2d");
+    canvas.value.width  = video.value.videoWidth;
     canvas.value.height = video.value.videoHeight;
     ctx.drawImage(video.value, 0, 0);
 
-    storage.photoData = canvas.value.toDataURL("image/png").split(',')[1];
+    storage.photoData   = canvas.value.toDataURL("image/png").split(',')[1];
 
     router.push('/Searching');
 }
@@ -57,7 +58,7 @@ onMounted(() => {
                     target="Main"
                     stylename="secondary"/>
             </div>
-            <div class="w3-container  w3-col s6">
+            <div class="w3-container w3-col s6">
                 <Button
                     class="w3-block"
                     icon="camera"

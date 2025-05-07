@@ -39,7 +39,7 @@ async function start() {
 
         <div class="images">
             <ResultImage
-                v-for="imageId in storage.foundFaces"
+                v-for="imageId in storage.foundFaces.slice(0,6)"
                 :imageId="imageId"
                 :key="imageId"/>
         </div>

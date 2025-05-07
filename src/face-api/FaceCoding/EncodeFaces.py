@@ -40,4 +40,3 @@ def processImage(filePath, dbManager, storage):
 
         storage.add(encoding, studentId)
         dbManager.addFace(studentId, byteData, photoId)
-        dbManager.commit()

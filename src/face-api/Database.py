@@ -32,23 +32,27 @@ class DB:
             PRIMARY KEY("id" AUTOINCREMENT)
         )""")
 
+    # Добавляет фотографию
     def addPhoto(self, path):
         self.cur.execute('INSERT INTO photo (path) VALUES (?)', (path,))
         return self.cur.lastrowid
 
+    # Добавляет студента
     def addStudent(self):
         self.cur.execute('INSERT INTO student (id) VALUES (NULL)')
         return self.cur.lastrowid
-        
+
+    # Связывает лицо со студентом
     def addStudentFace(self, studentId, faceId):
         self.cur.execute('INSERT INTO student_face (face_id,student_id) VALUES (?, ?)', (faceId,studentId))
         return self.cur.lastrowid
 
-    # encoding - 128-размерный массив кодировки лица
+    # Добавляет лицо
     def addFace(self, studentId, byteData, photoId):
         self.cur.execute('INSERT INTO face (student_id, encoding, photo_id) VALUES (?, ?, ?)', (studentId, byteData, photoId))
         return self.cur.lastrowid
 
+    # Возвращает все фотографии студентов с данными и ID студентов
     def getStudentFaces(self):
         self.cur.execute(
         """
@@ -57,6 +61,7 @@ class DB:
         """)
         return self.cur.fetchall()
 
+    # Возвращает true если фотография существует
     def isPhotoExists(self, filePath):
         self.cur.execute(
         """
@@ -66,6 +71,7 @@ class DB:
         """, (filePath,))
         return self.cur.fetchone()[0] > 0
 
+    # Возвращает фотографии по ID студента
     def getPhotosByStudentId(self, studentId):
         self.cur.execute(
         """
@@ -75,6 +81,7 @@ class DB:
         """, (studentId,))
         return self.cur.fetchall()
 
+    # Возвращает путь к фотографии по ID
     def getPhotoPath(self, photoId):
         self.cur.execute(
         """
@@ -84,6 +91,7 @@ class DB:
         """, (photoId,))
         return self.cur.fetchone()[0]
 
+    # Возвращает путь к фотографиям по их ID
     def getPathsByIds(self, photoIds):
         strings = (str(item) for item in photoIds)
         inStatement = ",".join(strings)
@@ -95,9 +103,11 @@ class DB:
         """ % inStatement)
         return self.cur.fetchall()
 
+    # Подтверждает транзакцию
     def commit(self):
         self.con.commit()
 
+    # Закрывает подключение
     def close(self):
         self.con.commit()
         self.con.close()

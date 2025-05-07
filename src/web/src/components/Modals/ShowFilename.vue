@@ -1,6 +1,6 @@
 <script setup>
-import Heading from "../Heading.vue"
-import Button from "../Button.vue"
+import Heading  from "../Heading.vue"
+import Button   from "../Button.vue"
 
 const props = defineProps({filename: String});
 const emit  = defineEmits(['confirm', 'cancel'])

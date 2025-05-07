@@ -1,0 +1,4 @@
+{
+    "media-dir": "/home/user/Pictures",
+    "database-file": "/home/user/db.sqlite3"
+}

@@ -1,38 +1,41 @@
 <script setup>
 // Стартовая страница
-import Button from "../components/Button.vue"
-import Heading from "../components/Heading.vue"
-import Step from "../components/Step.vue"
-import config from "../config.js"
-import UsbNotConnected from "../components/Modals/UsbNotConnected.vue"
-import { createApp, h, ref } from "vue"
-import { useRouter } from 'vue-router'
+
+import { createApp, h, ref }    from "vue"
+import { useRouter }            from 'vue-router'
+import { createConfirmDialog }  from 'vuejs-confirm-dialog'
+
+import Button           from "../components/Button.vue"
+import Heading          from "../components/Heading.vue"
+import Step             from "../components/Step.vue"
+import UsbNotConnected  from "../components/Modals/UsbNotConnected.vue"
+
+import config                   from "../config.js"
+import { checkExternalStorage}  from "../api.js"
 
 const router = useRouter();
-let currentModal;
-
-function usbDriveExists() {
-    return true;
-}
 
 function start() {
-    if (!usbDriveExists()) {        
-        // Открыть модальное окно с предупреждением о том что хранилище не
-        // подключено
-        const id = "usbNotConnected";
-        document.getElementById("modals").style.display = "block";
-        var ComponentApp = createApp({
-            setup () {
-                return () => h(UsbNotConnected, {id: id})
-            }
-        });
-        ComponentApp.
-        ComponentApp.mount("#modals");
-        document.getElementById(id).style.display = 'block';
-        return;
-    }
+    checkExternalStorage().then(function(data) {
+        const isOk = data.ok;
 
-    router.push('/Camera');
+        if (isOk) {
+            router.push('/Camera');
+            return;
+        }
+
+        // USB не подключен
+        const { reveal, onConfirm, onCancel } = createConfirmDialog(
+            UsbNotConnected
+        );
+        reveal();
+        onConfirm(() => {
+            // pass
+        });
+        onCancel(() => {
+            // pass
+        });
+    });
 }
 </script>
 
@@ -40,7 +43,7 @@ function start() {
     <div id="mainPage" class="page-main">
         <Heading text="Лицо успеха"/>
         <p class="w3-center w3-xlarge">
-            Сфотографируйся, а программа найдёт все фотографии техникума, на которых ты есть!
+            Сфотографируйся, а программа найдёт все фотографии техникума, на которых ты присутствуешь!
         </p>
         <div class="steps">
             <Step
@@ -71,8 +74,6 @@ function start() {
             </div>
         </div>
     </div>
-
-    <div id="modals"></div>
 </template>
 
 <style scoped>

@@ -1,15 +1,18 @@
 <script setup>
 // Страница поиска фотографий
+
+import { onMounted } from "vue"
+import { useRouter } from "vue-router"
+
 import Heading from "../components/Heading.vue"
 import Loader from "../components/Loader.vue"
 import config from "../config.js"
 import { sendFace } from "../api.js"
-import { onMounted } from "vue"
 import { storage } from '../storage.js'
-import { useRouter } from "vue-router"
 
 const router = useRouter();
 
+// Выбор интересного факта
 const facts = [
     "Техникум был основан в 1955 году",
     "Техбот - брат Лица успеха",

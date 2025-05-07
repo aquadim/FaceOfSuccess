@@ -10,9 +10,11 @@ import Database
 import os
 import zipfile
 
+# Фотография от клиента в кодировке base64
 class Photo(BaseModel):
     base64image: str
 
+# Запрос на создание ZIP архива по id
 class ZipRequest(BaseModel):
     imageIds: List[int]
 
@@ -61,8 +63,6 @@ async def createZip(r: ZipRequest):
     db = getDb()
     photoPaths = db.getPathsByIds(r.imageIds)
     db.close()
-
-    zipPath = ""
 
     # Сохранение изображения во временный файл
     # Генерируем путь к файлу

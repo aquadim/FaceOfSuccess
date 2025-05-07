@@ -30,7 +30,11 @@ class FaceStorage:
     def compare(self, encoding):
         # Список из булевых значений, где matches[i] будет True, если faces,
         # и соответственно ids[i] будет похоже на studentFace
-        matches = face_recognition.compare_faces(self.faces, encoding)
+        matches = face_recognition.compare_faces(
+            self.faces,
+            encoding,
+            tolerance=0.5
+        )
 
         if not True in matches:
             # Совпадений не найдено
