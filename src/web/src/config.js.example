@@ -1,4 +1,5 @@
 export default {
     filesystemApiUrl: "http://localhost:8001",
-    faceApiUrl: "http://localhost:8000"
+    faceApiUrl: "http://localhost:8000",
+    disableUSBChecks: false
 }

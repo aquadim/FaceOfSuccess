@@ -42,6 +42,12 @@ function doFSFetch(path, params = {}) {
 
 // Запрашивает у сервера генерацию имени файла для сохранения
 export async function getFilenameToSave() {
+    if (config.disableUSBChecks) {
+        return {
+            ok: true,
+            path: "C:\\face_of_success\\result.zip"
+        };
+    }
     const response = await doFSFetch("/get-name-to-save");
     const jsonData = await response.json();
     return jsonData;
@@ -49,6 +55,10 @@ export async function getFilenameToSave() {
 
 // Запрашивает у сервера сохранение фотографий
 export async function requestSaving(zipBlob, path) {
+    if (config.disableUSBChecks) {
+        console.log("Сохранение файлов отключено");
+        return;
+    }
     const fd = new FormData();
     fd.append("zipfile", zipBlob);
     fd.append("savepath", path);
@@ -61,6 +71,10 @@ export async function requestSaving(zipBlob, path) {
 
 // Проверяет, подключено ли внешнее устройство хранения
 export async function checkExternalStorage() {
+    debugger;
+    if (config.disableUSBChecks) {
+        return {ok: true};
+    }
     const response = await fetch(config.filesystemApiUrl + "/usb-connected");
     const jsonData = await response.json();
     return jsonData;
