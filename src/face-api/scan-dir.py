@@ -79,7 +79,7 @@ def main():
 
     # Сканирование изображений
     try:
-        files = os.listdir(mediaDir)
+        filesIterator = os.walk(mediaDir)
     except FileNotFoundError:
         logging.error(f"Каталог {mediaDir} не найден")
         return 5
@@ -87,21 +87,22 @@ def main():
     isFirstFound    = True
     storage         = FaceCoding.FaceStorage.FaceStorage()
 
-    for filename in files:
-        fullPath = os.path.realpath(os.path.join(mediaDir, filename))
-        if db.isPhotoExists(fullPath):
-            continue
-        newFound = True
+    for root, dirs, files in filesIterator:
+        for file in files:
+            fullPath = os.path.join(root, file)
+            if db.isPhotoExists(fullPath):
+                continue
+            newFound = True
 
-        # Если это первый раз когда нашли новую фотографию, 
-        # заполняем хранилище лиц
-        if isFirstFound:
-            isFirstFound = False
-            allFaces = db.getStudentFaces()
-            storage.fill(allFaces)
+            # Если это первый раз когда нашли новую фотографию, 
+            # заполняем хранилище лиц
+            if isFirstFound:
+                isFirstFound = False
+                allFaces = db.getStudentFaces()
+                storage.fill(allFaces)
         
-        FaceCoding.EncodeFaces.processImage(fullPath, db, storage)
-        db.commit()
+            FaceCoding.EncodeFaces.processImage(fullPath, db, storage)
+            db.commit()
 
     if not newFound:
         logging.info("Не обнаружено новых изображений")
